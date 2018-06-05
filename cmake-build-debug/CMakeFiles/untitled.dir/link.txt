@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/lexer/Lexer.cpp.o CMakeFiles/untitled.dir/lexer/Token.cpp.o CMakeFiles/untitled.dir/parser/ast/Node.cpp.o CMakeFiles/untitled.dir/parser/Parser.cpp.o CMakeFiles/untitled.dir/parser/ast/CommandNode.cpp.o  -o untitled 

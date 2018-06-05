@@ -1,3 +1,0 @@
-/home/marcin/git/ProjektUXP1A/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/marcin/git/ProjektUXP1A/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/marcin/git/ProjektUXP1A/cmake-build-debug/CMakeFiles/untitled.dir
