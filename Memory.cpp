@@ -4,54 +4,75 @@
 
 #include "Memory.h"
 
-const std::vector<std::string> &Memory::getParameters() const {
-    return parameters;
+Memory::Memory() {
+
 }
 
-const std::string &Memory::getCurrentName() const {
+std::string Memory::getParameter(int number) {
+    return parameters[number - 1];
+}
+
+std::string Memory::putParameter(int number, std::string value) {
+    return parameters[number - 1] = value;
+}
+
+std::string Memory::getCurrentName() {
     return currentName;
 }
 
-int Memory::getReturnCode() const {
+int Memory::getReturnCode() {
     return returnCode;
 }
 
-int Memory::getCurrentPID() const {
+int Memory::getCurrentPID() {
     return currentPID;
 }
 
-int Memory::getArgumentsNumber() const {
+int Memory::getArgumentsNumber() {
     return argumentsNumber;
 }
 
-const std::vector<std::string> &Memory::getPath() const {
-    return path;
+std::vector<std::string> Memory::getPath() {
+    return std::vector<std::string>(path);
 }
 
-const std::string &Memory::getHome() const {
+std::string Memory::getHome() {
     return home;
 }
 
-const std::string &Memory::getUser() const {
+std::string Memory::getUser() {
     return user;
 }
 
-int Memory::getUid() const {
+int Memory::getUid() {
     return uid;
 }
 
-const std::string &Memory::getShell() const {
+std::string Memory::getShell() {
     return shell;
 }
 
-const std::string &Memory::getTerm() const {
+std::string Memory::getTerm() {
     return term;
 }
 
-const std::string &Memory::getPwd() const {
+std::string Memory::getPwd() {
     return pwd;
 }
 
-const std::string &Memory::getOldpwd() const {
+std::string Memory::getOldpwd() {
     return oldpwd;
 }
+
+Symbol Memory::getSymbol(std::string name) {
+    if (symbolTable.find(name) == symbolTable.end()) {
+        return nullptr;
+    } else {
+        return symbolTable[name];
+    }
+}
+
+void Memory::putSymbol(std::string name, Symbol symbol) {
+    symbolTable[name] = symbol;
+}
+

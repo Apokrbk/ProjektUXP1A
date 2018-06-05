@@ -9,45 +9,18 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "Symbol.h"
 
 class Memory {
 private:
-    std::map<std::string, Symbol>;
-
+    std::map<std::string, Symbol> symbolTable;
     std::vector<std::string> parameters;
     std::string currentName;
     int returnCode;
     int currentPID;
     int argumentsNumber;
     std::vector<std::string> path;
-public:
-    const std::vector<std::string> &getParameters() const;
 
-    const std::string &getCurrentName() const;
-
-    int getReturnCode() const;
-
-    int getCurrentPID() const;
-
-    int getArgumentsNumber() const;
-
-    const std::vector<std::string> &getPath() const;
-
-    const std::string &getHome() const;
-
-    const std::string &getUser() const;
-
-    int getUid() const;
-
-    const std::string &getShell() const;
-
-    const std::string &getTerm() const;
-
-    const std::string &getPwd() const;
-
-    const std::string &getOldpwd() const;
-
-private:
     std::string home;
     std::string user;
     int uid;
@@ -55,6 +28,26 @@ private:
     std::string term;
     std::string pwd;
     std::string oldpwd;
+    
+public:
+    Memory(); // TODO fill with env parameters
+    std::string getParameter(int number);
+    std::string putParameter(int number, std::string);
+    std::string getCurrentName();
+    int getReturnCode();
+    int getCurrentPID();
+    int getArgumentsNumber();
+    std::vector<std::string> getPath();
+    std::string getHome();
+    std::string getUser();
+    int getUid();
+    std::string getShell();
+    std::string getTerm();
+    std::string getPwd();
+    std::string getOldpwd();
+    
+    Symbol getSymbol(std::string);
+    void putSymbol(std::string name, Symbol symbol);
 };
 
 
