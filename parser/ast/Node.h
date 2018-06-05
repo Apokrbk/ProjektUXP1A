@@ -16,6 +16,7 @@ public:
     };
 
     virtual std::string getRepr() = 0;
+    virtual void execute();
 
 protected:
     NodeType nodeType;

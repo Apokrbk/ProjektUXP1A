@@ -36,6 +36,9 @@ std::string Token::getRepr() {
             case TokenType::STREAM:
                 token = "STREAM";
                 break;
+            case TokenType::PWD:
+                token = "PWD";
+                break;
             default:
                 token = "UNKNOWN";
         }

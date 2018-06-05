@@ -7,7 +7,7 @@
 class Token {
 public:
     enum TokenType {
-        SEMICOLON, PIPE, STREAM, EQ, END, NUMBER, IDENTIFIER, KEYWORD
+        SEMICOLON, PIPE, STREAM, EQ, END, NUMBER, IDENTIFIER, KEYWORD, PWD
     };
     Token(TokenType tokenType, std::string tokenData);
 

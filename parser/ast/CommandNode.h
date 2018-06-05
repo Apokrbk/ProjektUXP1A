@@ -15,8 +15,12 @@ public:
     CommandNode(Token token);
 
     std::string getRepr();
+
+    void execute();
+
 private:
     Token token;
+
 };
 
 
