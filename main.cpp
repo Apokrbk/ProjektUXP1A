@@ -1,11 +1,19 @@
 #include <iostream>
-#include "Lexer.h"
+#include "lexer/Lexer.h"
+#include "parser/ast/Node.h"
+#include "parser/Parser.h"
 
 int main() {
-    Lexer lexer = Lexer("aaa = 512 ff           cd pwd|;<> ");
-    Token t = lexer.getNextToken();
-    while(t.tokenType != Token::TokenType::END){
-        std::cout << t.tokenType << "  " << t.tokenData << std::endl;
-        t = lexer.getNextToken();
+
+    while(true) {
+        std::string command;
+        std::getline(std::cin, command);
+        auto lexer = Lexer(command);
+        auto parser = Parser(lexer);
+        auto ast = parser.parseCommand();
+        while (ast != nullptr) {
+            std::cout << ast->getRepr()<< std::endl;
+            ast = parser.parseCommand();
+        }
     }
 }

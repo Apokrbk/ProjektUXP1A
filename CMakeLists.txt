@@ -3,4 +3,4 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(untitled main.cpp Lexer.cpp Lexer.h Token.cpp Token.h)
+add_executable(untitled main.cpp lexer/Lexer.cpp lexer/Lexer.h lexer/Token.cpp lexer/Token.h parser/ast/Node.cpp parser/ast/Node.h parser/Parser.cpp parser/Parser.h parser/ast/CommandNode.cpp parser/ast/CommandNode.h)

@@ -1,7 +1,3 @@
-//
-// Created by apok on 04.06.18.
-//
-
 #ifndef UNTITLED_TOKEN_H
 #define UNTITLED_TOKEN_H
 
@@ -13,9 +9,15 @@ public:
     enum TokenType {
         SEMICOLON, PIPE, STREAM, EQ, END, NUMBER, IDENTIFIER, KEYWORD
     };
+    Token(TokenType tokenType, std::string tokenData);
+
+    std::string getRepr();
+
+    TokenType getType();
+
+private:
     TokenType tokenType;
     std::string tokenData;
-    Token(TokenType tokenType, std::string tokenData);
 };
 
 
