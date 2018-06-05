@@ -6,7 +6,7 @@
 #include "ast/CommandNode.h"
 
 
-Parser::Parser(Lexer lexer): lexer(lexer), currentToken(lexer.getNextToken()){
+Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(lexer.getNextToken()){
 }
 
 std::shared_ptr<CommandNode> Parser::parseCommand() {

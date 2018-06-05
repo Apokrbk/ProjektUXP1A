@@ -1,4 +1,6 @@
+#include <map>
 #include "Lexer.h"
+
 
 Lexer::Lexer(std::string input) {
     this->input = input;
@@ -44,7 +46,7 @@ Token Lexer::getNextToken() {
             advance();
         }
         currentPos--;
-        if (tokenData == "cd" || tokenData == "pwd" || tokenData == "kill")
+        if (tokenData == "cd" || tokenData == "pwd" || tokenData == "kill" || tokenData == "ls")
             return Token(Token::TokenType::KEYWORD, tokenData);
         else
             return Token(Token::TokenType::IDENTIFIER, tokenData);

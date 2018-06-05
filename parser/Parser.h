@@ -14,7 +14,7 @@
 class Parser {
 
 public:
-    Parser(Lexer lexer);
+    Parser(Lexer& lexer);
     std::shared_ptr<CommandNode> parseCommand();
 
 private:
