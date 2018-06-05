@@ -14,7 +14,7 @@ class CommandNode: protected Node {
 public:
     CommandNode(Token token);
 
-    std::string getRepr();
+    std::string toString();
 private:
     Token token;
 };

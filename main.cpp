@@ -12,7 +12,7 @@ int main() {
         auto parser = Parser(lexer);
         auto ast = parser.parseCommand();
         while (ast != nullptr) {
-            std::cout << ast->getRepr()<< std::endl;
+            std::cout << ast->toString()<< std::endl;
             ast = parser.parseCommand();
         }
     }

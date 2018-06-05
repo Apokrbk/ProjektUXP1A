@@ -8,6 +8,6 @@ CommandNode::CommandNode(Token token): token(token) {
     nodeType = Node::NodeType::COMMAND;
 }
 
-std::string CommandNode::getRepr() {
+std::string CommandNode::toString() {
     return token.getRepr();
 }
