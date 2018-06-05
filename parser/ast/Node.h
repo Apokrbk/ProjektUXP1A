@@ -15,7 +15,7 @@ public:
         COMMAND
     };
 
-    virtual std::string getRepr() = 0;
+    virtual std::string toString() = 0;
     virtual void execute();
 
 protected:

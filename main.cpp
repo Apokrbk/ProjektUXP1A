@@ -1,6 +1,4 @@
 #include <iostream>
-#include <pwd.h>
-#include <unistd.h>
 #include "lexer/Lexer.h"
 #include "parser/ast/Node.h"
 #include "parser/Parser.h"
@@ -14,10 +12,9 @@ int main() {
         auto parser = Parser(lexer);
         auto ast = parser.parseCommand();
         while (ast != nullptr) {
-            std::cout << ast->getRepr()<< std::endl;
+            std::cout << ast->toString()<< std::endl;
             ast->execute();
             ast = parser.parseCommand();
         }
     }
-
 }

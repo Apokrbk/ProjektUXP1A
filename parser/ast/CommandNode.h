@@ -14,13 +14,12 @@ class CommandNode: protected Node {
 public:
     CommandNode(Token token);
 
-    std::string getRepr();
+    std::string toString();
 
     void execute();
 
 private:
     Token token;
-
 };
 
 
