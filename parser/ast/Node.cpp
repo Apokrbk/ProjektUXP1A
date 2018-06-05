@@ -3,3 +3,7 @@
 //
 
 #include "Node.h"
+
+void Node::execute() {
+
+}

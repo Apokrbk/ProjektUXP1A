@@ -15,6 +15,9 @@ public:
     CommandNode(Token token);
 
     std::string toString();
+
+    void execute();
+
 private:
     Token token;
 };

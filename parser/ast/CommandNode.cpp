@@ -2,6 +2,9 @@
 // Created by marcin on 05.06.18.
 //
 
+#include <iostream>
+#include <pwd.h>
+#include <unistd.h>
 #include "CommandNode.h"
 
 CommandNode::CommandNode(Token token): token(token) {
@@ -10,4 +13,14 @@ CommandNode::CommandNode(Token token): token(token) {
 
 std::string CommandNode::toString() {
     return token.getRepr();
+}
+
+void CommandNode::execute() {
+    if(token.getType()==Token::TokenType::PWD){
+        uid_t uid = geteuid();
+        struct passwd *pw = getpwuid(uid);
+        if(pw){
+            std::cout<< pw->pw_dir << std::endl;
+        }
+    }
 }

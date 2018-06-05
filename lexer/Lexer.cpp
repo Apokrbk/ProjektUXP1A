@@ -46,8 +46,9 @@ Token Lexer::getNextToken() {
             advance();
         }
         currentPos--;
-        if (tokenData == "cd" || tokenData == "pwd" || tokenData == "kill" || tokenData == "ls")
-            return Token(Token::TokenType::KEYWORD, tokenData);
+
+        if (tokenData == "pwd")
+            return Token(Token::TokenType::PWD, tokenData);
         else
             return Token(Token::TokenType::IDENTIFIER, tokenData);
     }

@@ -18,5 +18,4 @@ std::shared_ptr<CommandNode> Parser::parseCommand() {
 
 void Parser::eat() {
     currentToken = lexer.getNextToken();
-
 }

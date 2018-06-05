@@ -13,6 +13,7 @@ int main() {
         auto ast = parser.parseCommand();
         while (ast != nullptr) {
             std::cout << ast->toString()<< std::endl;
+            ast->execute();
             ast = parser.parseCommand();
         }
     }
