@@ -1,18 +1,14 @@
-//
-// Created by marcin on 05.06.18.
-//
-
-#ifndef UNTITLED_COMMANDNODE_H
-#define UNTITLED_COMMANDNODE_H
+#ifndef UNTITLED_BINARYOPNODE_H
+#define UNTITLED_BINARYOPNODE_H
 
 
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class CommandNode: protected Node {
+class BinaryOpNode: protected Node {
 
 public:
-    CommandNode(Token token);
+    BinaryOpNode(std::shared_ptr<Node> left, Token token, std::shared_ptr<Node> right);
 
     std::string toString();
 
@@ -23,4 +19,4 @@ private:
 };
 
 
-#endif //UNTITLED_COMMANDNODE_H
+#endif //UNTITLED_BINARYOPNODE_H

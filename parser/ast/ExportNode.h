@@ -1,18 +1,14 @@
-//
-// Created by marcin on 05.06.18.
-//
-
-#ifndef UNTITLED_COMMANDNODE_H
-#define UNTITLED_COMMANDNODE_H
+#ifndef UNTITLED_EXPORTNODE_H
+#define UNTITLED_EXPORTNODE_H
 
 
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class CommandNode: protected Node {
+class ExportNode: protected Node {
 
 public:
-    CommandNode(Token token);
+    ExportNode(Token token);
 
     std::string toString();
 
@@ -23,4 +19,4 @@ private:
 };
 
 
-#endif //UNTITLED_COMMANDNODE_H
+#endif //UNTITLED_EXPORTNODE_H

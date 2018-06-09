@@ -4,6 +4,8 @@
 
 #include "Parser.h"
 #include "ast/SubstitutionNode.h"
+#include "ast/BinaryOpNode.h"
+#include "ast/ExportNode.h"
 
 
 Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(lexer.getNextToken()){
@@ -58,6 +60,67 @@ std::shared_ptr<Node> Parser::parseShellStatement() {
 
     return nullptr;
 }
+
+std::shared_ptr<Node> Parser::parseBasicStatement() {
+    std::shared_ptr<Node> node;
+
+    node = parseQuotedStatement();
+    if (node != nullptr)
+        return node;
+
+    node = parseVarAssign();
+    if (node != nullptr)
+        return node;
+
+    node = parseVar();
+    if (node != nullptr)
+        return node;
+
+    node = parseProgramCall();
+    if (node != nullptr)
+        return node;
+
+    return nullptr;
+
+}
+
+std::shared_ptr<Node> Parser::parseCompoundStatement() {
+    std::shared_ptr<Node> node;
+
+    node = parseProgramCall();
+    if (node == nullptr)
+        return nullptr;
+
+    while(currentToken.getType() == Token::TokenType::PIPE || currentToken.getType() == Token::TokenType::STREAM){
+        if(currentToken.getType() == Token::TokenType::PIPE){
+            Token tokenOp = currentToken;
+            eat(Token::TokenType::PIPE);
+            node = std::make_shared<BinaryOpNode>(node, tokenOp, parseCompoundStatement());
+        } else {
+            Token tokenOp = currentToken;
+            eat(Token::TokenType::STREAM);
+            node = std::make_shared<BinaryOpNode>(node, tokenOp, parseName());
+        }
+    }
+
+    return node;
+
+}
+
+std::shared_ptr<Node> Parser::parseExportStatement() {
+    if(currentToken.getType() != Token::TokenType::EXPORT)
+        return nullptr;
+    eat(Token::TokenType::EXPORT);
+    Token token = currentToken;
+
+    auto node = parseName();
+    if(node == nullptr)
+        throw std::runtime_error("Syntax error");
+
+    return std::make_shared<ExportNode>(token);
+}
+
+
 
 
 
