@@ -5,10 +5,11 @@
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class NameNode: protected Node {
+class NameNode: public Node {
 
 public:
     NameNode(Token token);
+    ~NameNode();
 
     std::string toString();
 

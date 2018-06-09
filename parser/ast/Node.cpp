@@ -7,3 +7,11 @@
 void Node::execute() {
 
 }
+
+Node::~Node() {
+
+}
+
+Node::Node() {
+
+}

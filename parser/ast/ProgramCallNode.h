@@ -6,20 +6,19 @@
 #define UNTITLED_PROGRAMCALLNODE_H
 
 
+#include <memory>
+#include <vector>
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class ProgramCallNode: protected Node {
+class ProgramCallNode: public Node {
 
 public:
-    ProgramCallNode(std::shared_ptr<NameNode> progname, std::vector<std::shared_ptr<Node>> args);
-
+    ProgramCallNode(std::shared_ptr<Node> progname, std::vector<std::shared_ptr<Node>> args);
+    ~ProgramCallNode();
     std::string toString();
 
     void execute();
-
-private:
-    Token token;
 };
 
 

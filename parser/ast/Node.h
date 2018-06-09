@@ -11,6 +11,8 @@
 class Node {
 
 public:
+    Node();
+    virtual ~Node();
     enum NodeType {
         COMMAND
     };

@@ -65,8 +65,9 @@ std::string Memory::getOldpwd() {
 }
 
 Symbol Memory::getSymbol(std::string name) {
+    Symbol symbol;
     if (symbolTable.find(name) == symbolTable.end()) {
-        return nullptr;
+        return symbol;
     } else {
         return symbolTable[name];
     }

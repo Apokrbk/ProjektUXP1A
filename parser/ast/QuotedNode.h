@@ -9,10 +9,11 @@
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class QuotedNode: protected Node {
+class QuotedNode: public Node {
 
 public:
     QuotedNode(Token token);
+    ~QuotedNode();
 
     std::string toString();
 

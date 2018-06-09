@@ -9,14 +9,17 @@
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class SubstitutionNode: protected Node {
+class SubstitutionNode: public Node {
 
 public:
     SubstitutionNode(Token token);
+    ~SubstitutionNode();
 
     std::string toString();
 
-    void execute();
+    void execute() {
+        Node::execute();
+    }
 
 private:
     Token token;

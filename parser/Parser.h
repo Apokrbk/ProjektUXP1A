@@ -23,8 +23,8 @@ public:
     std::shared_ptr<Node> parseCompoundStatement();
     std::shared_ptr<Node> parseExportStatement();
     std::shared_ptr<Node> parseNameStatement();
-    std::shared_ptr<Node> parseVarAssign(std::shared_ptr<VarIdNode> toBeAssigned);
-    std::shared_ptr<Node> parseProgramCall(std::shared_ptr<NameNode>(progname));
+    std::shared_ptr<Node> parseVarAssign(std::shared_ptr<Node> toBeAssigned);
+    std::shared_ptr<Node> parseProgramCall(std::shared_ptr<Node>(progname));
     std::shared_ptr<Node> parseVar();
     std::shared_ptr<Node> parseVarId();
     std::shared_ptr<Node> parseQuotedStatement();

@@ -6,20 +6,19 @@
 #define UNTITLED_VARASSIGNNODE_H
 
 
+#include <memory>
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class VarAssignNode: protected Node {
+class VarAssignNode: public Node {
 
 public:
-    VarAssignNode(Node toBeAssigned, Node toAssign);
-
+    VarAssignNode(std::shared_ptr<Node> toBeAssigned, std::shared_ptr<Node> toAssign);
+    ~VarAssignNode();
     std::string toString();
 
     void execute();
 
-private:
-    Token token;
 };
 
 

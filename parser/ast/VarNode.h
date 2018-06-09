@@ -9,11 +9,11 @@
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class VarNode: protected Node {
+class VarNode: public Node {
 
 public:
     VarNode(Token token);
-
+    ~VarNode();
     std::string toString();
 
     void execute();

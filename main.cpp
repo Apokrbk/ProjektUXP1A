@@ -10,11 +10,11 @@ int main() {
         std::getline(std::cin, command);
         auto lexer = Lexer(command);
         auto parser = Parser(lexer);
-        auto ast = parser.parseCommand();
+        auto ast = parser.parseStatement();
         while (ast != nullptr) {
             std::cout << ast->toString()<< std::endl;
             ast->execute();
-            ast = parser.parseCommand();
+            ast = parser.parseStatement();
         }
     }
 }
