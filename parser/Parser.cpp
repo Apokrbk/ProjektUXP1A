@@ -98,7 +98,10 @@ std::shared_ptr<Node> Parser::parseBasicStatement() {
 std::shared_ptr<Node> Parser::parseCompoundStatement() {
     std::shared_ptr<Node> node;
     Token token = currentToken;
-    eat(Token::TokenType::STRING);
+    if(currentToken.getType()==Token::TokenType::STRING)
+        eat(Token::TokenType::STRING);
+    else
+        eat(Token::TokenType::IDENTIFIER);
     node = parseProgramCall(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
     if (node == nullptr)
         return node;
@@ -170,10 +173,10 @@ std::shared_ptr<Node> Parser::parseVarAssign(std::shared_ptr<Node> toBeAssigned)
 
 std::shared_ptr<Node> Parser::parseFileName() {
     std::shared_ptr<Node> node;
-    if(currentToken.getType() != Token::TokenType::STRING)
+    if(currentToken.getType() != Token::TokenType::STRING && currentToken.getType() != Token::TokenType::IDENTIFIER)
         return node;
-    eat(Token::TokenType::STRING);
     Token token = currentToken;
+    eat();
     return std::static_pointer_cast<Node>(std::make_shared<FilenameNode>(token));
 }
 
@@ -181,7 +184,7 @@ std::shared_ptr<Node> Parser::parseNameStatement() {
     if(currentToken.getType() == Token::TokenType::STRING){
         Token token = currentToken;
         eat(Token::TokenType::STRING);
-        return parseProgramCall(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
+        return parseCompoundStatement(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
     }
 
     if(currentToken.getType() == Token::TokenType::IDENTIFIER){
@@ -190,7 +193,7 @@ std::shared_ptr<Node> Parser::parseNameStatement() {
         if(currentToken.getType() == Token::TokenType::EQ)
             return parseVarAssign(std::static_pointer_cast<Node>(std::make_shared<VarIdNode>(token)));
         else
-            return parseProgramCall(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
+            return parseCompoundStatement(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
     }
 }
 
@@ -228,6 +231,27 @@ std::shared_ptr<Node> Parser::parseQuotedStatement() {
     eat(Token::TokenType::QUOTE);
     node = parseStatement();
     eat(Token::TokenType::QUOTE);
+
+    return node;
+}
+
+std::shared_ptr<Node> Parser::parseCompoundStatement(std::shared_ptr<Node> progname) {
+    std::shared_ptr<Node> node;
+    node = parseProgramCall(progname);
+    if (node == nullptr)
+        return node;
+
+    while(currentToken.getType() == Token::TokenType::PIPE || currentToken.getType() == Token::TokenType::STREAM){
+        if(currentToken.getType() == Token::TokenType::PIPE){
+            Token tokenOp = currentToken;
+            eat(Token::TokenType::PIPE);
+            node = std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(node, tokenOp, parseCompoundStatement()));
+        } else {
+            Token tokenOp = currentToken;
+            eat(Token::TokenType::STREAM);
+            node = std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(node, tokenOp, parseFileName()));
+        }
+    }
 
     return node;
 }

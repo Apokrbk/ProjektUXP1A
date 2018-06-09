@@ -13,5 +13,5 @@ FilenameNode::~FilenameNode() {
 }
 
 std::string FilenameNode::toString() {
-    return std::__cxx11::string();
+    return token.getRepr();
 }

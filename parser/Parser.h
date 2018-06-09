@@ -20,6 +20,7 @@ public:
     std::shared_ptr<Node> parseSubstitution();
     std::shared_ptr<Node> parseShellStatement();
     std::shared_ptr<Node> parseBasicStatement();
+    std::shared_ptr<Node> parseCompoundStatement(std::shared_ptr<Node> progname);
     std::shared_ptr<Node> parseCompoundStatement();
     std::shared_ptr<Node> parseExportStatement();
     std::shared_ptr<Node> parseNameStatement();
