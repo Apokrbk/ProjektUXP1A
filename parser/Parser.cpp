@@ -158,7 +158,9 @@ std::shared_ptr<Node> Parser::parseVarAssign(std::shared_ptr<Node> toBeAssigned)
     Token op = currentToken;
     eat(Token::TokenType::EQ);
     if(currentToken.getType() == Token::TokenType::STRING || currentToken.getType() == Token::TokenType::IDENTIFIER){
-        return std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(toBeAssigned, op, std::make_shared<NameNode>(currentToken)));
+        Token token = currentToken;
+        eat();
+        return std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(toBeAssigned, op, std::make_shared<NameNode>(token)));
     }
     else{
         throw std::runtime_error("Syntax error in parsevarassign");

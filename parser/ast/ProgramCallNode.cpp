@@ -4,7 +4,7 @@
 
 #include "ProgramCallNode.h"
 
-ProgramCallNode::ProgramCallNode(std::shared_ptr <Node> progname, std::vector <std::shared_ptr<Node>> args) {
+ProgramCallNode::ProgramCallNode(std::shared_ptr <Node> progname, std::vector <std::shared_ptr<Node>> args):progname(progname), args(args) {
 
 }
 
