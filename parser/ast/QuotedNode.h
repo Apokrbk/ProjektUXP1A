@@ -2,17 +2,17 @@
 // Created by marcin on 05.06.18.
 //
 
-#ifndef UNTITLED_COMMANDNODE_H
-#define UNTITLED_COMMANDNODE_H
+#ifndef UNTITLED_QUOTEDNODE_H
+#define UNTITLED_QUOTEDNODE_H
 
 
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class CommandNode: protected Node {
+class QuotedNode: protected Node {
 
 public:
-    CommandNode(Token token);
+    QuotedNode(Token token);
 
     std::string toString();
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //UNTITLED_COMMANDNODE_H
+#endif //UNTITLED_QUOTEDNODE_H

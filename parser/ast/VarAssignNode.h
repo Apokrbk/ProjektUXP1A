@@ -2,17 +2,17 @@
 // Created by marcin on 05.06.18.
 //
 
-#ifndef UNTITLED_COMMANDNODE_H
-#define UNTITLED_COMMANDNODE_H
+#ifndef UNTITLED_VARASSIGNNODE_H
+#define UNTITLED_VARASSIGNNODE_H
 
 
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class CommandNode: protected Node {
+class VarAssignNode: protected Node {
 
 public:
-    CommandNode(Token token);
+    VarAssignNode(Node toBeAssigned, Node toAssign);
 
     std::string toString();
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //UNTITLED_COMMANDNODE_H
+#endif //UNTITLED_VARASSIGNNODE_H

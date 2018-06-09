@@ -2,17 +2,17 @@
 // Created by marcin on 05.06.18.
 //
 
-#ifndef UNTITLED_VARNODE_H
-#define UNTITLED_VARNODE_H
+#ifndef UNTITLED_VARIDNODE_H
+#define UNTITLED_VARIDNODE_H
 
 
 #include "../../lexer/Token.h"
 #include "Node.h"
 
-class VarNode: protected Node {
+class VarIdNode: protected Node {
 
 public:
-    VarNode(Token token);
+    VarIdNode(Token token);
 
     std::string toString();
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //UNTITLED_VARNODE_H
+#endif //UNTITLED_VARIDNODE_H
