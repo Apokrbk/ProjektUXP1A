@@ -33,6 +33,8 @@ Token Lexer::getNextToken() {
         return Token(Token::TokenType::PIPE, "|");
     } else if (currentChar == '<' || currentChar == '>') {
         return Token(Token::TokenType::STREAM, std::string(1, currentChar));
+    }else if (currentChar == '`' ) {
+        return Token(Token::TokenType::QUOTE_REVERSED,"`");
     }else if(currentChar == '$'){
         return Token(Token::TokenType::DOLLARSIGN, "$");
     }

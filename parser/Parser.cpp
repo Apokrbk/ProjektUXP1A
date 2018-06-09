@@ -200,12 +200,13 @@ std::shared_ptr<Node> Parser::parseNameStatement() {
 std::shared_ptr<Node> Parser::parseProgramCall(std::shared_ptr<Node> progname) {
 
     std::vector<std::shared_ptr<Node>> args;
-    while(currentToken.getType() != Token::TokenType::PIPE && currentToken.getType() != Token::TokenType::STREAM && currentToken.getType() != Token::TokenType::END){
+    while(currentToken.getType() != Token::TokenType::PIPE && currentToken.getType() != Token::TokenType::STREAM && currentToken.getType() != Token::TokenType::END && currentToken.getType()!=Token::TokenType::QUOTE_REVERSED){
         if(currentToken.getType() == Token::TokenType::DOLLARSIGN){
             args.push_back(parseVar());
         }
-        else if(currentToken.getType() == Token::TokenType::STRING){
+        else if(currentToken.getType() == Token::TokenType::STRING || currentToken.getType() == Token::TokenType::IDENTIFIER){
             args.push_back(parseName());
+            eat();
         }
         else{
             throw std::runtime_error("Syntax error in parseprogramcall");
@@ -216,10 +217,12 @@ std::shared_ptr<Node> Parser::parseProgramCall(std::shared_ptr<Node> progname) {
 
 std::shared_ptr<Node> Parser::parseName() {
     std::shared_ptr<Node> node;
-    if(currentToken.getType() != Token::TokenType::STRING)
+    if(currentToken.getType() != Token::TokenType::STRING && currentToken.getType() != Token::TokenType::IDENTIFIER)
         return node;
-    else
+    else{
         return std::static_pointer_cast<Node>(std::make_shared<NameNode>(currentToken));
+    }
+
 
 }
 
