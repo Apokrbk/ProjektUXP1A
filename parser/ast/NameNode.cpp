@@ -13,7 +13,7 @@ NameNode::~NameNode() {
 }
 
 std::string NameNode::toString() {
-    return std::__cxx11::string();
+    return token.getRepr();
 }
 
 void NameNode::execute() {

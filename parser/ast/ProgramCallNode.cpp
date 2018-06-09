@@ -13,7 +13,12 @@ ProgramCallNode::~ProgramCallNode() {
 }
 
 std::string ProgramCallNode::toString() {
-    return std::__cxx11::string();
+    std::string result=progname->toString();
+    result += " ARGS: ";
+    for(auto arg : args){
+        result += arg->toString();
+    }
+    return result;
 }
 
 void ProgramCallNode::execute() {

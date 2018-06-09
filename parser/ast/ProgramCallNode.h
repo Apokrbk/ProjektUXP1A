@@ -19,6 +19,9 @@ public:
     std::string toString();
 
     void execute();
+private:
+    std::shared_ptr<Node> progname;
+    std::vector<std::shared_ptr<Node>> args;
 };
 
 

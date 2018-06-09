@@ -17,6 +17,8 @@ public:
 
 private:
     Token token;
+    std::shared_ptr<Node> left;
+    std::shared_ptr<Node> right;
 };
 
 

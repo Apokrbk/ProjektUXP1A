@@ -15,18 +15,24 @@
 #include "ast/ProgramCallNode.h"
 
 
-Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(lexer.getNextToken()){
+Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(this->lexer.getNextToken()){
 }
 
 
 void Parser::eat(Token::TokenType type) {
-    if (currentToken.getType() == type)
-        throw std::runtime_error("Syntax error");
+    if (currentToken.getType() != type)
+        throw std::runtime_error("Syntax error in eat");
+    currentToken = lexer.getNextToken();
+}
+
+void Parser::eat() {
     currentToken = lexer.getNextToken();
 }
 
 std::shared_ptr<Node> Parser::parseStatement() {
     std::shared_ptr<Node> node;
+    if(currentToken.getType() == Token::TokenType::END)
+        return nullptr;
 
     node = parseSubstitution();
     if (node != nullptr)
@@ -121,7 +127,7 @@ std::shared_ptr<Node> Parser::parseExportStatement() {
     Token token = currentToken;
     node = parseVarId();
     if(node == nullptr)
-        throw std::runtime_error("Syntax error");
+        throw std::runtime_error("Syntax error in parse export statement");
 
     return std::static_pointer_cast<Node>(std::make_shared<ExportNode>(token));
 }
@@ -155,7 +161,7 @@ std::shared_ptr<Node> Parser::parseVarAssign(std::shared_ptr<Node> toBeAssigned)
         return std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(toBeAssigned, op, std::make_shared<NameNode>(currentToken)));
     }
     else{
-        throw std::runtime_error("Syntax error");
+        throw std::runtime_error("Syntax error in parsevarassign");
     }
 
 }
@@ -189,7 +195,7 @@ std::shared_ptr<Node> Parser::parseNameStatement() {
 std::shared_ptr<Node> Parser::parseProgramCall(std::shared_ptr<Node> progname) {
 
     std::vector<std::shared_ptr<Node>> args;
-    while(currentToken.getType() != Token::TokenType::PIPE || currentToken.getType() != Token::TokenType::STREAM || currentToken.getType() != Token::TokenType::END){
+    while(currentToken.getType() != Token::TokenType::PIPE && currentToken.getType() != Token::TokenType::STREAM && currentToken.getType() != Token::TokenType::END){
         if(currentToken.getType() == Token::TokenType::DOLLARSIGN){
             args.push_back(parseVar());
         }
@@ -197,7 +203,7 @@ std::shared_ptr<Node> Parser::parseProgramCall(std::shared_ptr<Node> progname) {
             args.push_back(parseName());
         }
         else{
-            throw std::runtime_error("Syntax error");
+            throw std::runtime_error("Syntax error in parseprogramcall");
         }
     }
     return std::static_pointer_cast<Node>(std::make_shared<ProgramCallNode>(progname, args));
@@ -223,6 +229,7 @@ std::shared_ptr<Node> Parser::parseQuotedStatement() {
 
     return node;
 }
+
 
 
 

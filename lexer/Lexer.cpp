@@ -33,15 +33,11 @@ Token Lexer::getNextToken() {
         return Token(Token::TokenType::PIPE, "|");
     } else if (currentChar == '<' || currentChar == '>') {
         return Token(Token::TokenType::STREAM, std::string(1, currentChar));
-    } else if (isdigit(currentChar)) {
-        while (isdigit(currentChar)) {
-            tokenData += currentChar;
-            advance();
-        }
-        currentPos--;
-        return Token(Token::TokenType::NUMBER, tokenData);
-    } else if (isalpha(currentChar)) {
-        while (isalpha(currentChar)) {
+    }else if(currentChar == '$'){
+        return Token(Token::TokenType::DOLLARSIGN, "$");
+    }
+    else if (isalpha(currentChar) || isdigit(currentChar)) {
+        while (isalpha(currentChar) || isdigit(currentChar) || currentChar=='.') {
             tokenData += currentChar;
             advance();
         }
@@ -49,7 +45,11 @@ Token Lexer::getNextToken() {
 
         if (tokenData == "pwd")
             return Token(Token::TokenType::PWD, tokenData);
+        else if(!isalpha(tokenData[0]) || tokenData.find(".") != std::string::npos)
+            return Token(Token::TokenType::STRING, tokenData);
         else
             return Token(Token::TokenType::IDENTIFIER, tokenData);
     }
+    else
+        throw std::runtime_error("Invalid sign " + currentChar);
 }

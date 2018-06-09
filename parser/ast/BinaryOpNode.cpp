@@ -4,7 +4,7 @@
 
 #include "BinaryOpNode.h"
 
-BinaryOpNode::BinaryOpNode(std::shared_ptr <Node> left, Token token, std::shared_ptr <Node> right): token(token) {
+BinaryOpNode::BinaryOpNode(std::shared_ptr <Node> leftN, Token token, std::shared_ptr <Node> rightN): token(token), left(leftN), right(rightN) {
 }
 
 BinaryOpNode::~BinaryOpNode() {
@@ -12,7 +12,7 @@ BinaryOpNode::~BinaryOpNode() {
 }
 
 std::string BinaryOpNode::toString() {
-    return std::__cxx11::string();
+    return left->toString() + " " + token.getRepr() + " " + right->toString();
 }
 
 void BinaryOpNode::execute() {

@@ -13,7 +13,7 @@ ExportNode::~ExportNode() {
 }
 
 std::string ExportNode::toString() {
-    return std::__cxx11::string();
+    return token.getRepr();
 }
 
 void ExportNode::execute() {
