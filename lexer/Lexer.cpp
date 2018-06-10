@@ -38,20 +38,16 @@ Token Lexer::getNextToken() {
     }else if(currentChar == '$'){
         return Token(Token::TokenType::DOLLARSIGN, "$");
     }
-    else if (isalpha(currentChar) || isdigit(currentChar)) {
+    else {
         while (isalpha(currentChar) || isdigit(currentChar) || currentChar=='.') {
             tokenData += currentChar;
             advance();
         }
         currentPos--;
 
-        if (tokenData == "pwd")
-            return Token(Token::TokenType::PWD, tokenData);
-        else if(!isalpha(tokenData[0]) || tokenData.find(".") != std::string::npos)
+        if(!isalpha(tokenData[0]) || tokenData.find(".") != std::string::npos)
             return Token(Token::TokenType::STRING, tokenData);
         else
             return Token(Token::TokenType::IDENTIFIER, tokenData);
     }
-    else
-        throw std::runtime_error("Invalid sign " + currentChar);
 }
