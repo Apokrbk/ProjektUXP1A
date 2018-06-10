@@ -17,7 +17,7 @@ int main() {
                 ast = parser.parseStatement();
             }
         } catch (std::runtime_error &e){
-            std::cout << e.what() << std::endl;
+            std::cout << "error " << e.what() << std::endl;
         }
     }
 }
