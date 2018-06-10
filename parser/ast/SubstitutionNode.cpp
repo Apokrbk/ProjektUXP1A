@@ -13,5 +13,5 @@ SubstitutionNode::~SubstitutionNode() {
 }
 
 std::string SubstitutionNode::toString() {
-    return std::__cxx11::string();
+    return "<SubstitutionNode + " + token.getRepr() + ">";
 }

@@ -13,7 +13,7 @@ ExportNode::~ExportNode() {
 }
 
 std::string ExportNode::toString() {
-    return token.getRepr();
+    return "<ExportNode " + token.getRepr() + ">";
 }
 
 void ExportNode::execute() {

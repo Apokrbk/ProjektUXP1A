@@ -12,7 +12,7 @@ BinaryOpNode::~BinaryOpNode() {
 }
 
 std::string BinaryOpNode::toString() {
-    return left->toString() + " " + token.getRepr() + " " + right->toString();
+    return "<BinaryOpNode: " + left->toString() + " " + token.getRepr() + " " + right->toString() + ">";
 }
 
 void BinaryOpNode::execute() {

@@ -13,7 +13,7 @@ QuotedNode::~QuotedNode() {
 }
 
 std::string QuotedNode::toString() {
-    return std::__cxx11::string();
+    return "<QuotedNode + " + token.getRepr() + ">";
 }
 
 void QuotedNode::execute() {

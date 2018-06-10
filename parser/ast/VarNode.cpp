@@ -13,7 +13,7 @@ VarNode::~VarNode() {
 }
 
 std::string VarNode::toString() {
-    return std::__cxx11::string();
+    return "<VarNode " + token.getRepr() + ">";
 }
 
 void VarNode::execute() {
