@@ -17,10 +17,10 @@ std::string VarNode::toString() {
     return "<VarNode " + token.getRepr() + ">";
 }
 
-void VarNode::execute(Memory *memory) {
+std::string VarNode::execute(Memory *memory) {
     Symbol symbol = memory->getSymbol(token.getTokenData());
     if(symbol.getValue().empty())
-        std::cout<<"No such variable"<<std::endl;
+        return "No such variable";
     else
-        std::cout<<symbol.getValue()<<std::endl;
+        return symbol.getValue();
 }

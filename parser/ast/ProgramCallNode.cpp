@@ -23,10 +23,10 @@ std::string ProgramCallNode::toString() {
     return result + ">";
 }
 
-void ProgramCallNode::execute(Memory *memory) {
+std::string ProgramCallNode::execute(Memory *memory) {
     std::string progname_s = std::static_pointer_cast<NameNode>(progname)->getToken().getTokenData();
     if(progname_s=="pwd"){
-        std::cout<<memory->getPwd()<<std::endl;
+        return memory->getPwd();
     }
     else if(progname_s=="cd"){
         if(args.size()==1){
@@ -42,7 +42,7 @@ void ProgramCallNode::execute(Memory *memory) {
 
     }
     else if(progname_s=="ls"){
-        std::cout<<memory->ls()<<std::endl;
+        return memory->ls();
     }
     else{
 

@@ -17,7 +17,7 @@ std::string BinaryOpNode::toString() {
     return "<BinaryOpNode: " + left->toString() + " " + token.getRepr() + " " + right->toString() + ">";
 }
 
-void BinaryOpNode::execute(Memory *memory) {
+std::string BinaryOpNode::execute(Memory *memory) {
     if(token.getType() == Token::TokenType::EQ)
         memory->putSymbol(std::static_pointer_cast<VarIdNode>(left)->getToken().getTokenData(), Symbol(std::static_pointer_cast<NameNode>(right)->getToken().getTokenData()));
 }

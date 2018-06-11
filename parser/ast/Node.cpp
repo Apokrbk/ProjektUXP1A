@@ -4,7 +4,7 @@
 
 #include "Node.h"
 
-void Node::execute() {
+std::string Node::execute() {
 
 }
 
@@ -16,6 +16,6 @@ Node::Node() {
 
 }
 
-void Node::execute(Memory *memory) {
+std::string Node::execute(Memory *memory) {
 
 }

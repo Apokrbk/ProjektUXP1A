@@ -13,7 +13,7 @@ public:
 
     std::string toString();
 
-    void execute();
+    std::string execute();
     Token getToken();
 private:
     Token token;

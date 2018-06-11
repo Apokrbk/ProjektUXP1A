@@ -17,7 +17,7 @@ std::string VarIdNode::toString() {
     return "<VarIdNode: " + token.getRepr() + ">";
 }
 
-void VarIdNode::execute(Memory *memory) {
+std::string VarIdNode::execute(Memory *memory) {
 
 }
 

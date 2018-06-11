@@ -16,7 +16,7 @@ std::string NameNode::toString() {
     return "<NameNode " + token.getRepr() + ">";
 }
 
-void NameNode::execute() {
+std::string NameNode::execute() {
     Node::execute();
 }
 

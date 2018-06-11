@@ -19,8 +19,8 @@ public:
     };
 
     virtual std::string toString() = 0;
-    virtual void execute(Memory *memory);
-    virtual void execute();
+    virtual std::string execute(Memory *memory);
+    virtual std::string execute();
 
 protected:
     NodeType nodeType;

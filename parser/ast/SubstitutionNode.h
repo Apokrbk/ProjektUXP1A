@@ -17,9 +17,7 @@ public:
 
     std::string toString();
 
-    void execute() {
-        Node::execute();
-    }
+    std::string execute();
 
 private:
     Token token;
