@@ -8,11 +8,12 @@
 
 #include "../../lexer/Token.h"
 #include "Node.h"
+#include "ProgramCallNode.h"
 
 class SubstitutionNode: public Node {
 
 public:
-    SubstitutionNode(Token token);
+    SubstitutionNode(std::shared_ptr<Node> programCallNode);
     ~SubstitutionNode();
 
     std::string toString();
@@ -20,7 +21,7 @@ public:
     std::string execute(Memory *memory);
 
 private:
-    Token token;
+    std::shared_ptr<Node> programCallNode;
 };
 
 

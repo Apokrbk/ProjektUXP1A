@@ -3,8 +3,9 @@
 //
 
 #include "SubstitutionNode.h"
+#include "../Parser.h"
 
-SubstitutionNode::SubstitutionNode(Token token): token(token) {
+SubstitutionNode::SubstitutionNode(std::shared_ptr<Node> programCallNode): programCallNode(programCallNode) {
 
 }
 
@@ -13,9 +14,12 @@ SubstitutionNode::~SubstitutionNode() {
 }
 
 std::string SubstitutionNode::toString() {
-    return "<SubstitutionNode + " + token.getRepr() + ">";
+    return " ";
 }
 
 std::string SubstitutionNode::execute(Memory *memory) {
-    return "";
+    auto lexer = Lexer(programCallNode->execute(memory));
+    auto parser = Parser(lexer);
+    auto ast = parser.parseStatement();
+    return ast->execute(memory);
 }

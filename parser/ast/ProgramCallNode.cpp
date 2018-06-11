@@ -45,7 +45,7 @@ std::string ProgramCallNode::execute(Memory *memory) {
         return memory->ls();
     }
     else{
-        return "";
+        return "CHUJ";
     }
 }
 

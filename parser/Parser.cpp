@@ -55,7 +55,7 @@ std::shared_ptr<Node> Parser::parseSubstitution() {
     node = parseStatement();
     eat(Token::TokenType::QUOTE_REVERSED);
 
-    return node;
+    return std::static_pointer_cast<Node>(std::make_shared<SubstitutionNode>(node));
 }
 
 std::shared_ptr<Node> Parser::parseShellStatement() {
