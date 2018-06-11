@@ -3,6 +3,8 @@
 #include "parser/ast/Node.h"
 #include "parser/Parser.h"
 #include "Memory.h"
+#include "exception/ParserException.h"
+#include "exception/CommandNotFoundException.h"
 
 int main() {
 
@@ -18,7 +20,9 @@ int main() {
                 std::cout << ast->toString() << std::endl;
                 ast = parser.parseStatement();
             }
-        } catch (std::runtime_error &e){
+        } catch (ParserException &e){
+            std::cout << e.what() << std::endl;
+        } catch (CommandNotFoundException &e){
             std::cout << e.what() << std::endl;
         }
     }
