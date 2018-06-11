@@ -24,7 +24,7 @@ std::string BinaryOpNode::execute(Memory *memory) {
     if(token.getType() == Token::TokenType::EQ)
         memory->putSymbol(std::static_pointer_cast<VarIdNode>(left)->getToken().getTokenData(), Symbol(std::static_pointer_cast<NameNode>(right)->getToken().getTokenData()));
     else if(token.getType() == Token::TokenType::STREAM){
-        std::string programValue = std::static_pointer_cast<ProgramCallNode>(left)->execute(memory);
+        std::string programValue = left->execute(memory);
         std::string filename = memory->getPwd() + "/" + std::static_pointer_cast<FilenameNode>(right)->getToken().getTokenData();
         std::ofstream o(filename.c_str());
         o<<programValue;
