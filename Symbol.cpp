@@ -3,3 +3,11 @@
 //
 
 #include "Symbol.h"
+
+Symbol::Symbol(const std::string &value) : value(value) {}
+
+Symbol::Symbol() {}
+
+const std::string &Symbol::getValue() const {
+    return value;
+}

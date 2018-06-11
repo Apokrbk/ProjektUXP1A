@@ -16,7 +16,7 @@ public:
     ~VarNode();
     std::string toString();
 
-    void execute();
+    void execute(Memory *memory);
 
 private:
     Token token;

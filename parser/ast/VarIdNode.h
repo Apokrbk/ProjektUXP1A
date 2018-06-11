@@ -14,9 +14,12 @@ class VarIdNode: public Node {
 public:
     VarIdNode(Token token);
     ~VarIdNode();
+
+    Token getToken();
+
     std::string toString();
 
-    void execute();
+    void execute(Memory *memory);
 
 private:
     Token token;

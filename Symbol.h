@@ -9,6 +9,12 @@
 #include <string>
 
 class Symbol {
+public:
+    Symbol(const std::string &value);
+
+    const std::string &getValue() const;
+
+    Symbol();
 
 private:
     std::string value;

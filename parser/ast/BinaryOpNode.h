@@ -13,12 +13,13 @@ public:
     ~BinaryOpNode();
     std::string toString();
 
-    void execute();
+    void execute(Memory *memory);
 
 private:
     Token token;
     std::shared_ptr<Node> left;
     std::shared_ptr<Node> right;
+
 };
 
 
