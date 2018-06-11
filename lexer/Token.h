@@ -16,6 +16,7 @@ public:
     std::string getRepr();
 
     TokenType getType();
+    std::string getTokenData();
 
 private:
     TokenType tokenType;

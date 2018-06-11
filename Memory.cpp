@@ -137,7 +137,8 @@ void Memory::cd(std::string path) {
     }
     else{
         oldpwd=pwd;
-        pwd+="/";
+        if(pwd!="/")
+            pwd+="/";
         pwd+=path;
     }
 }

@@ -15,3 +15,7 @@ Node::~Node() {
 Node::Node() {
 
 }
+
+void Node::execute(Memory *memory) {
+
+}

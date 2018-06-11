@@ -14,7 +14,7 @@ public:
     std::string toString();
 
     void execute();
-
+    Token getToken();
 private:
     Token token;
 };

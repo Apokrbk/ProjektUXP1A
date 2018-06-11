@@ -58,3 +58,7 @@ Token::TokenType Token::getType() {
 std::string Token::getRepr() {
     return "<" + getTypeString(tokenType) + " token, content: " + tokenData + ">";
 }
+
+std::string Token::getTokenData() {
+    return tokenData;
+}

@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include "../../Memory.h"
 
 class Node {
 
@@ -18,6 +19,7 @@ public:
     };
 
     virtual std::string toString() = 0;
+    virtual void execute(Memory *memory);
     virtual void execute();
 
 protected:

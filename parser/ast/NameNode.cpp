@@ -19,3 +19,7 @@ std::string NameNode::toString() {
 void NameNode::execute() {
     Node::execute();
 }
+
+Token NameNode::getToken() {
+    return token;
+}

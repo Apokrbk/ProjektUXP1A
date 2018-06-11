@@ -18,7 +18,7 @@ public:
     ~ProgramCallNode();
     std::string toString();
 
-    void execute();
+    void execute(Memory *memory);
 private:
     std::shared_ptr<Node> progname;
     std::vector<std::shared_ptr<Node>> args;
