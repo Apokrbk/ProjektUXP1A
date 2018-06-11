@@ -13,6 +13,8 @@
 #include "ast/VarIdNode.h"
 #include "ast/FilenameNode.h"
 #include "ast/ProgramCallNode.h"
+#include "../exception/ParserException.h"
+#include "../exception/CommandNotFoundException.h"
 
 
 Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(this->lexer.getNextToken()){
@@ -21,11 +23,7 @@ Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(this->lexer.getNextToke
 
 void Parser::eat(Token::TokenType type) {
     if (currentToken.getType() != type)
-        throw std::runtime_error("Syntax error in eat");
-    currentToken = lexer.getNextToken();
-}
-
-void Parser::eat() {
+        throw ParserException(getTypeString(currentToken.getType()), getTypeString(type));
     currentToken = lexer.getNextToken();
 }
 
@@ -130,7 +128,7 @@ std::shared_ptr<Node> Parser::parseExportStatement() {
     Token token = currentToken;
     node = parseVarId();
     if(node == nullptr)
-        throw std::runtime_error("Syntax error in parse export statement");
+        throw ParserException(getTypeString(currentToken.getType()), "VARIABLE_ID");
 
     return std::static_pointer_cast<Node>(std::make_shared<ExportNode>(token));
 }
@@ -162,11 +160,14 @@ std::shared_ptr<Node> Parser::parseVarAssign(std::shared_ptr<Node> toBeAssigned)
     eat(Token::TokenType::EQ);
     if(currentToken.getType() == Token::TokenType::STRING || currentToken.getType() == Token::TokenType::IDENTIFIER){
         Token token = currentToken;
-        eat();
+        if(currentToken.getType() == Token::TokenType::STRING)
+            eat(Token::TokenType::STRING);
+        else
+            eat(Token::TokenType::IDENTIFIER);
         return std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(toBeAssigned, op, std::make_shared<NameNode>(token)));
     }
     else{
-        throw std::runtime_error("Syntax error in parsevarassign");
+        throw ParserException(getTypeString(currentToken.getType()), "VALUE");
     }
 
 }
@@ -176,7 +177,10 @@ std::shared_ptr<Node> Parser::parseFileName() {
     if(currentToken.getType() != Token::TokenType::STRING && currentToken.getType() != Token::TokenType::IDENTIFIER)
         return node;
     Token token = currentToken;
-    eat();
+    if(currentToken.getType() == currentToken.getType() != Token::TokenType::STRING)
+        eat(Token::TokenType::STRING);
+    else
+        eat(Token::TokenType::IDENTIFIER);
     return std::static_pointer_cast<Node>(std::make_shared<FilenameNode>(token));
 }
 
@@ -206,10 +210,13 @@ std::shared_ptr<Node> Parser::parseProgramCall(std::shared_ptr<Node> progname) {
         }
         else if(currentToken.getType() == Token::TokenType::STRING || currentToken.getType() == Token::TokenType::IDENTIFIER){
             args.push_back(parseName());
-            eat();
+            if(currentToken.getType() == Token::TokenType::STRING)
+                eat(Token::TokenType::STRING);
+            else
+                eat(Token::TokenType::IDENTIFIER);
         }
         else{
-            throw std::runtime_error("Syntax error in parseprogramcall");
+            throw ParserException(getTypeString(currentToken.getType()), "ARGS");
         }
     }
     return std::static_pointer_cast<Node>(std::make_shared<ProgramCallNode>(progname, args));

@@ -7,9 +7,10 @@
 class Token {
 public:
     enum TokenType {
-        SEMICOLON, PIPE, STREAM, EQ, END, NUMBER, IDENTIFIER, KEYWORD, PWD, QUOTE_REVERSED, EXPORT, STRING, DOLLARSIGN,
+        SEMICOLON, PIPE, STREAM, EQ, END, NUMBER, IDENTIFIER, QUOTE_REVERSED, EXPORT, STRING, DOLLARSIGN,
         QUOTE
     };
+
     Token(TokenType tokenType, std::string tokenData);
 
     std::string getRepr();
@@ -21,5 +22,6 @@ private:
     std::string tokenData;
 };
 
+std::string getTypeString(Token::TokenType type);
 
 #endif //UNTITLED_TOKEN_H

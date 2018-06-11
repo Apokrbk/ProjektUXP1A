@@ -1,13 +1,10 @@
-//
-// Created by apok on 04.06.18.
-//
-
 #ifndef UNTITLED_LEXER_H
 #define UNTITLED_LEXER_H
 
 
 #include <string>
 #include "Token.h"
+#include <wctype.h>
 
 class Lexer {
 

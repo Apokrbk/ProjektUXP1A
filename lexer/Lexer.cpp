@@ -1,4 +1,5 @@
 #include <map>
+#include <algorithm>
 #include "Lexer.h"
 
 
@@ -33,21 +34,26 @@ Token Lexer::getNextToken() {
         return Token(Token::TokenType::PIPE, "|");
     } else if (currentChar == '<' || currentChar == '>') {
         return Token(Token::TokenType::STREAM, std::string(1, currentChar));
-    }else if (currentChar == '`' ) {
-        return Token(Token::TokenType::QUOTE_REVERSED,"`");
-    }else if(currentChar == '$'){
+    } else if (currentChar == '`') {
+        return Token(Token::TokenType::QUOTE_REVERSED, "`");
+    } else if (currentChar == '\'') {
+        return Token(Token::TokenType::QUOTE, "`");
+    } else if (currentChar == '$') {
         return Token(Token::TokenType::DOLLARSIGN, "$");
     }
-    else {
-        while (isalpha(currentChar) || isdigit(currentChar) || currentChar=='.') {
-            tokenData += currentChar;
-            advance();
-        }
-        currentPos--;
+    bool isAlphaNum = true;
 
-        if(!isalpha(tokenData[0]) || tokenData.find(".") != std::string::npos)
-            return Token(Token::TokenType::STRING, tokenData);
-        else
-            return Token(Token::TokenType::IDENTIFIER, tokenData);
+    while (!isspace(currentChar) && currentChar != '\0' && (currentChar != '=' || !isAlphaNum)) {
+        isAlphaNum = isAlphaNum && std::isalnum(currentChar);
+        tokenData += currentChar;
+        advance();
     }
+    currentPos--;
+    if (tokenData == "export")
+        return Token(Token::TokenType::EXPORT, tokenData);
+
+    if(!isAlphaNum)
+        return Token(Token::TokenType::STRING, tokenData);
+    else
+        return Token(Token::TokenType::IDENTIFIER, tokenData);
 }
