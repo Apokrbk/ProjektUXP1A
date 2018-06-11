@@ -15,6 +15,7 @@ public:
 
     std::string execute(Memory *memory);
 
+    Token getToken();
 private:
     Token token;
 };

@@ -19,3 +19,7 @@ std::string FilenameNode::toString() {
 std::string FilenameNode::execute(Memory *memory) {
     return "";
 }
+
+Token FilenameNode::getToken() {
+    return token;
+}
