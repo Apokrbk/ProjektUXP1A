@@ -45,6 +45,10 @@ public:
     std::string getTerm();
     std::string getPwd();
     std::string getOldpwd();
+    void initHome();
+    std::string getParentDirFromDir(std::string dir);
+    std::string ls();
+    void cd(std::string path);
     
     Symbol getSymbol(std::string);
     void putSymbol(std::string name, Symbol symbol);

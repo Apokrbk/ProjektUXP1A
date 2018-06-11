@@ -2,9 +2,11 @@
 #include "lexer/Lexer.h"
 #include "parser/ast/Node.h"
 #include "parser/Parser.h"
+#include "Memory.h"
 
 int main() {
 
+    auto memory = Memory();
     while(true) {
         try {
             std::string command;

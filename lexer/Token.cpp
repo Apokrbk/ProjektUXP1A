@@ -39,6 +39,9 @@ std::string Token::getRepr() {
             case TokenType::PWD:
                 token = "PWD";
                 break;
+            case TokenType::STRING:
+                token = "STRING";
+                break;
             default:
                 token = "UNKNOWN";
         }

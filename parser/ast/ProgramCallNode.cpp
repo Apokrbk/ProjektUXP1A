@@ -24,3 +24,7 @@ std::string ProgramCallNode::toString() {
 void ProgramCallNode::execute() {
     Node::execute();
 }
+
+void ProgramCallNode::pwd() {
+
+}
