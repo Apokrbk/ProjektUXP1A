@@ -43,7 +43,7 @@ Token Lexer::getNextToken() {
     }
     bool isAlphaNum = true;
 
-    while (!isspace(currentChar) && currentChar != '\0' && (currentChar != '=' || !isAlphaNum)) {
+    while (!isspace(currentChar) && currentChar != '\0' && currentChar != '`' && (currentChar != '=' || !isAlphaNum)) {
         isAlphaNum = isAlphaNum && std::isalnum(currentChar);
         tokenData += currentChar;
         advance();
