@@ -10,6 +10,7 @@ int main() {
 
     auto memory = Memory();
     while(true) {
+        std::cout<< "$";
         try {
             std::string command;
             std::getline(std::cin, command);
