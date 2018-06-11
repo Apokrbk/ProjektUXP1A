@@ -22,6 +22,9 @@ public:
 private:
     std::shared_ptr<Node> progname;
     std::vector<std::shared_ptr<Node>> args;
+    void pwd();
+    void cd();
+    void ls();
 };
 
 

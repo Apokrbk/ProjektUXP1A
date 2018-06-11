@@ -2,10 +2,15 @@
 // Created by marcin on 05.06.18.
 //
 
+#include <unistd.h>
+#include <pwd.h>
+#include <dirent.h>
 #include "Memory.h"
 
 Memory::Memory() {
-
+    initHome();
+    pwd=home;
+    oldpwd=getParentDirFromDir(pwd);
 }
 
 std::string Memory::getParameter(int number) {
@@ -76,4 +81,65 @@ Symbol Memory::getSymbol(std::string name) {
 void Memory::putSymbol(std::string name, Symbol symbol) {
     symbolTable[name] = symbol;
 }
+
+void Memory::initHome() {
+    uid_t uid = geteuid();
+    struct passwd *structpasswd = getpwuid(uid);
+    if(structpasswd)
+        home = structpasswd->pw_dir;
+    else
+        throw std::runtime_error("Error with init home path");
+}
+
+std::string Memory::getParentDirFromDir(std::string dir) {
+    if(dir=="/")
+        return dir;
+    if(dir.find("/") != std::string::npos){
+        unsigned long idx = dir.rfind("/");
+        if(idx==0)
+            return "/";
+        else
+            return dir.substr(0, idx);
+    }
+    else{
+        throw std::runtime_error("Incorrect dir");
+    }
+}
+
+std::string Memory::ls() {
+    std::string files;
+    DIR *d;
+    struct dirent *dir;
+    d = opendir(pwd.c_str());
+    if(d) {
+        while ((dir = readdir(d)) != nullptr) {
+            if(dir->d_name[0] != '.'){
+                files+=dir->d_name;
+                files+="\n";
+            }
+        }
+        closedir(d);
+    }
+    return files;
+}
+
+void Memory::cd(std::string path) {
+    if(path=="."){
+
+    }
+    else if(path==".."){
+        pwd=oldpwd;
+        oldpwd=getParentDirFromDir(pwd);
+    }
+    else if(path==""){
+        pwd=home;
+        oldpwd=getParentDirFromDir(pwd);
+    }
+    else{
+        oldpwd=pwd;
+        pwd+="/";
+        pwd+=path;
+    }
+}
+
 
