@@ -17,7 +17,7 @@ public:
 
     std::string toString();
 
-    std::string execute();
+    std::string execute(Memory *memory);
 
 private:
     Token token;

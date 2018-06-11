@@ -16,6 +16,6 @@ std::string FilenameNode::toString() {
     return "<FilenameNode " + token.getRepr() + ">";
 }
 
-std::string FilenameNode::execute() {
-    return Node::execute();
+std::string FilenameNode::execute(Memory *memory) {
+    return "";
 }

@@ -16,6 +16,6 @@ std::string ExportNode::toString() {
     return "<ExportNode " + token.getRepr() + ">";
 }
 
-std::string ExportNode::execute() {
-    Node::execute();
+std::string ExportNode::execute(Memory *memory) {
+    return "";
 }

@@ -30,7 +30,7 @@ std::string ProgramCallNode::execute(Memory *memory) {
     }
     else if(progname_s=="cd"){
         if(args.size()==1){
-            std::string arg1 = std::static_pointer_cast<NameNode>(args[0])->getToken().getTokenData();
+            std::string arg1 = args[0]->execute(memory);
             memory->cd(arg1);
         }
         else if(args.size()==0){
@@ -39,13 +39,13 @@ std::string ProgramCallNode::execute(Memory *memory) {
         else{
             throw std::runtime_error("Incorrect cd arguments");
         }
-
+        return "";
     }
     else if(progname_s=="ls"){
         return memory->ls();
     }
     else{
-
+        return "";
     }
 }
 

@@ -16,6 +16,6 @@ std::string SubstitutionNode::toString() {
     return "<SubstitutionNode + " + token.getRepr() + ">";
 }
 
-std::string SubstitutionNode::execute() {
-    return Node::execute();
+std::string SubstitutionNode::execute(Memory *memory) {
+    return "";
 }

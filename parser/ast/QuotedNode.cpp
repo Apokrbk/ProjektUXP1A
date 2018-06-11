@@ -16,6 +16,6 @@ std::string QuotedNode::toString() {
     return "<QuotedNode + " + token.getRepr() + ">";
 }
 
-std::string QuotedNode::execute() {
-    Node::execute();
+std::string QuotedNode::execute(Memory *memory) {
+    return "";
 }
