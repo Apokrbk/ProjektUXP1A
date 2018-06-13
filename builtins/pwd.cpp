@@ -2,9 +2,10 @@
 // Created by kacper on 13.06.18.
 //
 
-#include <pwd.h>
-#include <zconf.h>
+#include <unistd.h>
 #include <iostream>
+#include <pwd.h>
+
 
 void pwd(){
     uid_t uid = geteuid();

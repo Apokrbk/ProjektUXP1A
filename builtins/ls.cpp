@@ -3,9 +3,10 @@
 //
 
 #include <dirent.h>
-#include <zconf.h>
-#include <pwd.h>
+#include <unistd.h>
 #include <iostream>
+#include <pwd.h>
+
 
 void ls(){
         uid_t uid = geteuid();

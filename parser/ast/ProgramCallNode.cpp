@@ -2,8 +2,6 @@
 // Created by marcin on 09.06.18.
 //
 
-#include <iostream>
-#include <unistd.h>
 #include "ProgramCallNode.h"
 #include "NameNode.h"
 

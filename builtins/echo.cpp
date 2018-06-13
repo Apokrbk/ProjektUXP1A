@@ -2,8 +2,7 @@
 // Created by kacper on 13.06.18.
 //
 #include <dirent.h>
-#include <zconf.h>
-#include <pwd.h>
+#include <unistd.h>
 #include <iostream>
 #include <vector>
 

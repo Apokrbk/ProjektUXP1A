@@ -8,6 +8,8 @@
 
 #include <memory>
 #include <vector>
+#include <iostream>
+#include <unistd.h>
 #include "../../lexer/Token.h"
 #include "Node.h"
 
