@@ -19,7 +19,7 @@ int main() {
             auto ast = parser.parseStatement();
             while (ast != nullptr) {
                 //std::cout << ast->toString() << std::endl;
-                std::cout << ast->execute(&memory) << std::endl;
+                ast->execute(&memory);
                 ast = parser.parseStatement();
             }
         } catch (ParserException &e){

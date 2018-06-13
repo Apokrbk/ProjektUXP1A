@@ -19,5 +19,9 @@ add_executable(untitled main.cpp lexer/Lexer.cpp lexer/Lexer.h lexer/Token.cpp l
 
 add_executable(ls builtins/ls.cpp)
 
+add_executable(rm builtins/rm.cpp)
+
+add_executable(touch builtins/touch.cpp)
+
 add_executable(pwd builtins/pwd.cpp)
 
