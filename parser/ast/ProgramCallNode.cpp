@@ -4,6 +4,7 @@
 
 #include "ProgramCallNode.h"
 #include "NameNode.h"
+#include "../../exception/CommandNotFoundException.h"
 
 ProgramCallNode::ProgramCallNode(std::shared_ptr <Node> progname, std::vector <std::shared_ptr<Node>> args):progname(progname), args(args) {
 
@@ -60,7 +61,7 @@ std::string ProgramCallNode::execute(Memory *memory) {
         return "";
     }
     else{
-        return "CHUJ";
+        throw CommandNotFoundException(progname_s);
     }
 }
 
