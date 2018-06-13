@@ -43,6 +43,12 @@ std::string ProgramCallNode::execute(Memory *memory) {
     }
     else if(progname_s=="ls"){
         return memory->ls();
+    }else if(progname_s=="echo"){
+        std::string echo = "";
+        for(int i = 0; i < args.size(); ++i){
+            echo += args[i]->execute(memory) + " ";
+        }
+        return echo;
     }
     else{
         return "CHUJ";
