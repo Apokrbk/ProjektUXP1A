@@ -61,7 +61,10 @@ std::string ProgramCallNode::execute(Memory *memory) {
         return "";
     }
     else{
-        throw CommandNotFoundException(progname_s);
+        if(fork() == 0) {
+            execl((memory->getPwd() + "/" + progname_s).c_str(), NULL);
+        }
+
     }
 }
 
