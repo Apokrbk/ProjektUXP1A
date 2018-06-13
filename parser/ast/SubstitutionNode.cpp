@@ -35,11 +35,5 @@ std::string SubstitutionNode::execute(Memory *memory) {
     std::string result = std::string(readBuffer);
 
 
-    auto lexer = Lexer(result);
-    auto parser = Parser(lexer);
-    auto ast = parser.parseStatement();
-    if (ast != nullptr)
-        return ast->execute(memory);
-    else
-        return "";
+    return result;
 }

@@ -19,7 +19,14 @@ int main() {
             auto ast = parser.parseStatement();
             while (ast != nullptr) {
                 //std::cout << ast->toString() << std::endl;
-                std::cout << ast->execute(&memory) << std::endl;
+                std::string result = ast->execute(&memory);
+                if (result.length() > 0) {
+                    lexer = Lexer(result);
+                    auto lexer2 = Lexer(result);
+                    auto parser2 = Parser(lexer);
+                    auto ast2 = parser2.parseStatement();
+                    ast2->execute(&memory);
+                }
                 ast = parser.parseStatement();
             }
         } catch (ParserException &e){

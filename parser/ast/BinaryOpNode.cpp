@@ -13,6 +13,7 @@
 #include "ProgramCallNode.h"
 #include "FilenameNode.h"
 #include "../../exception/ParserException.h"
+#include "SubstitutionNode.h"
 
 BinaryOpNode::BinaryOpNode(std::shared_ptr <Node> leftN, Token token, std::shared_ptr <Node> rightN): token(token), left(leftN), right(rightN) {
 }
@@ -30,7 +31,12 @@ std::string BinaryOpNode::execute(Memory *memory) {
     int WRITE = 1;
 
     if(token.getType() == Token::TokenType::EQ)
-        memory->putSymbol(std::static_pointer_cast<VarIdNode>(left)->getToken().getTokenData(), Symbol(std::static_pointer_cast<NameNode>(right)->getToken().getTokenData()));
+        if(std::dynamic_pointer_cast<NameNode>(right))
+            memory->putSymbol(std::static_pointer_cast<VarIdNode>(left)->getToken().getTokenData(), Symbol(std::static_pointer_cast<NameNode>(right)->getToken().getTokenData()));
+        else {
+            std::string value = right->execute(memory);
+            memory->putSymbol(std::static_pointer_cast<VarIdNode>(left)->getToken().getTokenData(), Symbol(value));
+        }
     else if(token.getType() == Token::TokenType::STREAM){
         int fds1[2];
         pipe(fds1);

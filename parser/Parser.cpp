@@ -170,13 +170,23 @@ std::shared_ptr<Node> Parser::parseVar() {
 std::shared_ptr<Node> Parser::parseVarAssign(std::shared_ptr<Node> toBeAssigned) {
     Token op = currentToken;
     eat(Token::TokenType::EQ);
-    if(currentToken.getType() == Token::TokenType::STRING || currentToken.getType() == Token::TokenType::IDENTIFIER){
-        Token token = currentToken;
-        if(currentToken.getType() == Token::TokenType::STRING)
-            eat(Token::TokenType::STRING);
-        else
-            eat(Token::TokenType::IDENTIFIER);
-        return std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(toBeAssigned, op, std::make_shared<NameNode>(token)));
+    if(currentToken.getType() == Token::TokenType::STRING
+       || currentToken.getType() == Token::TokenType::IDENTIFIER
+       || currentToken.getType() == Token::TokenType::QUOTE_REVERSED){
+        if (currentToken.getType() == Token::TokenType::QUOTE_REVERSED){
+            std::shared_ptr<Node> node = parseSubstitution();
+            return std::static_pointer_cast<Node>(
+                    std::static_pointer_cast<Node>(std::make_shared<BinaryOpNode>(toBeAssigned, op, node)));
+        } else {
+
+            Token token = currentToken;
+            if (currentToken.getType() == Token::TokenType::STRING)
+                eat(Token::TokenType::STRING);
+            else
+                eat(Token::TokenType::IDENTIFIER);
+            return std::static_pointer_cast<Node>(
+                    std::make_shared<BinaryOpNode>(toBeAssigned, op, std::make_shared<NameNode>(token)));
+        }
     }
     else{
         throw ParserException(getTypeString(currentToken.getType()), "VALUE");
