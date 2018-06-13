@@ -56,7 +56,9 @@ std::string ProgramCallNode::execute(Memory *memory) {
         for (int i = 0; i < args.size(); ++i) {
             echo += args[i]->execute(memory) + " ";
         }
-        std::cout << echo << std::endl;
+        if(fork() == 0){
+            execl("../builtins/echo", echo.c_str(), NULL);
+        };
         sleep(1);
         return "";
     }else if(progname_s=="touch"){
@@ -70,6 +72,18 @@ std::string ProgramCallNode::execute(Memory *memory) {
         std::string arg = memory->getPwd() +"/"+ args[0]->execute(memory);
         if(fork() == 0){
             execl("../builtins/rm", arg.c_str(), NULL);
+        }
+        sleep(1);
+        return "";
+    }else if(progname_s=="addHi"){
+        if(fork() == 0){
+            execl("../builtins/addHi", NULL);
+        }
+        sleep(1);
+        return "";
+    }else if(progname_s=="secondIn"){
+        if(fork() == 0){
+            execl("../builtins/secondIn", NULL);
         }
         sleep(1);
         return "";

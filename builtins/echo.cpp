@@ -6,14 +6,10 @@
 #include <iostream>
 #include <vector>
 
-void echo(vector<char *>argv){
-    std::string echo = "";
-    for (int i = 0; i < argv.size(); ++i) {
-        echo += argv[i] + " ";
-    }
-    std::cout << echo << std::endl;
+void echo(std::string arg){
+    std::cout << echo;
 }
 
 int main(int argc, char *argv[]){
-    echo(std::vector(argv));
+    echo(argv[0]);
 }
