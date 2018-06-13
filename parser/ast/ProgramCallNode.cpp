@@ -47,7 +47,7 @@ std::string ProgramCallNode::execute(Memory *memory) {
     }
     else if(progname_s=="ls"){
         if(fork() == 0){
-            execl("../builtins/ls", "ls", NULL);
+            execl("../builtins/ls", memory->getPwd().c_str(), NULL);
         }
         sleep(1);
         return "";

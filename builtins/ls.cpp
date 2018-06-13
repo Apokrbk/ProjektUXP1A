@@ -8,13 +8,7 @@
 #include <pwd.h>
 
 
-void ls(){
-        uid_t uid = geteuid();
-        struct passwd *structpasswd = getpwuid(uid);
-        std::string pwd;
-        if(structpasswd)
-            pwd = structpasswd->pw_dir;
-
+void ls(std::string pwd){
         std::string files;
         DIR *d;
         struct dirent *dir;
@@ -32,5 +26,5 @@ void ls(){
 }
 
 int main(int argc, char *argv[]){
-    ls();
+    ls(argv[0]);
 }
