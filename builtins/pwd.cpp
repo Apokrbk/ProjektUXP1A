@@ -7,13 +7,10 @@
 #include <pwd.h>
 
 
-void pwd(){
-    uid_t uid = geteuid();
-    struct passwd *structpasswd = getpwuid(uid);
-    if(structpasswd)
-        std::cout<<structpasswd->pw_dir<<std::endl;
+void pwd(std::string pwd){
+    std::cout<<pwd<<std::endl;
 }
 
 int main(int argc, char *argv[]){
-    pwd();
+    pwd(argv[0]);
 }
