@@ -3,11 +3,15 @@
 //
 
 #include <fstream>
+#include <thread>
+#include <unistd.h>
+#include <iostream>
 #include "BinaryOpNode.h"
 #include "VarIdNode.h"
 #include "NameNode.h"
 #include "ProgramCallNode.h"
 #include "FilenameNode.h"
+#include "../../exception/ParserException.h"
 
 BinaryOpNode::BinaryOpNode(std::shared_ptr <Node> leftN, Token token, std::shared_ptr <Node> rightN): token(token), left(leftN), right(rightN) {
 }
@@ -29,6 +33,42 @@ std::string BinaryOpNode::execute(Memory *memory) {
         std::ofstream o(filename.c_str());
         o<<programValue;
         o.close();
+    }else if(token.getType() == Token::TokenType::PIPE){
+        int READ = 0;
+        int WRITE = 1;
+
+        int fds1[2];
+
+        pipe(fds1);
+
+        if (fork()==0) {
+            // Close unnecessary pipe's end
+            close(fds1[READ]);
+            dup2(fds1[WRITE], 1);
+            close(fds1[WRITE]);
+
+            // Execute first program
+            std::string result = std::static_pointer_cast<ProgramCallNode>(left)->execute(memory);
+            write(1, result.c_str(), result.size() + 1);
+        }
+        if (fork()==0){
+            // Close unnecessary pipe's end
+            close(fds1[WRITE]);
+            // Pipe input to stdin
+            dup2(fds1[READ],0); close(fds1[READ]);
+
+            // Read output of last program
+            std::string arg;
+            std::getline(std::cin, arg);
+
+            // Add it as an argument
+            Token token = Token(Token::TokenType::STRING, arg);
+            std::static_pointer_cast<ProgramCallNode>(right)->add_argument(std::make_shared<NameNode>(token));
+
+            // Execute second program
+            std::string result = std::static_pointer_cast<ProgramCallNode>(right)->execute(memory);
+            std::cout<<result;
+        }
     }
 
     return "";

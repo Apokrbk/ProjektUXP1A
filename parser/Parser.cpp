@@ -22,6 +22,9 @@ Parser::Parser(Lexer& lexer): lexer(lexer), currentToken(this->lexer.getNextToke
 
 
 void Parser::eat(Token::TokenType type) {
+    /**
+     * Eat current token and throw exception if it isn't of the given type
+     */
     if (currentToken.getType() != type)
         throw ParserException(getTypeString(currentToken.getType()), getTypeString(type));
     currentToken = lexer.getNextToken();

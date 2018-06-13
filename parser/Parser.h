@@ -37,7 +37,6 @@ private:
     Lexer lexer;
     Token currentToken;
     void eat(Token::TokenType type);
-    void eat();
 };
 
 

@@ -5,6 +5,8 @@
 #include <memory>
 #include "../../lexer/Token.h"
 #include "Node.h"
+#include <iostream>
+
 
 class BinaryOpNode: public Node {
 

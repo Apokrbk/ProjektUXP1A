@@ -20,6 +20,9 @@ void Lexer::advance() {
 }
 
 Token Lexer::getNextToken() {
+    /**
+     * Return next token.
+     */
     tokenData = "";
     advance();
     while (isspace(currentChar))

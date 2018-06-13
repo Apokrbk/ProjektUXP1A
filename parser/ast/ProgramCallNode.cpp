@@ -49,3 +49,6 @@ std::string ProgramCallNode::execute(Memory *memory) {
     }
 }
 
+void ProgramCallNode::add_argument(std::shared_ptr<Node> arg) {
+    args.push_back(arg);
+}
