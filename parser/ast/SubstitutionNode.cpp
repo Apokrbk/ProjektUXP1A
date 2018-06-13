@@ -14,7 +14,7 @@ SubstitutionNode::~SubstitutionNode() {
 }
 
 std::string SubstitutionNode::toString() {
-    return " ";
+    return "<SubstitutionNode "+programCallNode->toString()+">";
 }
 
 std::string SubstitutionNode::execute(Memory *memory) {
