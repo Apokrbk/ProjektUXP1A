@@ -7,7 +7,7 @@
 #include <vector>
 
 void echo(std::string arg){
-    std::cout << echo;
+    std::cout << arg;
 }
 
 int main(int argc, char *argv[]){
