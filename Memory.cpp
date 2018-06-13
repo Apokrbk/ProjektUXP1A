@@ -141,13 +141,22 @@ void Memory::cd(std::string path) {
     else{
 
         struct stat sb;
+        std::string real_path;
 
-        if (stat((pwd + "/" + path).c_str(), &sb) == 0 && S_ISDIR(sb.st_mode))
+        if (path[0] == '/')
+            real_path = path;
+        else
+            real_path = pwd + "/" + path;
+
+        if (stat(real_path.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode))
         {
             oldpwd=pwd;
             if(pwd!="/")
                 pwd+="/";
-            pwd+=path;
+            if(path[0] == '/')
+                pwd = real_path;
+            else
+                pwd+=path;
             putSymbol("PWD", Symbol(pwd));
             putSymbol("OLDPWD", Symbol(oldpwd));
         } else {
