@@ -26,18 +26,35 @@ std::string BinaryOpNode::toString() {
 }
 
 std::string BinaryOpNode::execute(Memory *memory) {
+    int READ = 0;
+    int WRITE = 1;
+
     if(token.getType() == Token::TokenType::EQ)
         memory->putSymbol(std::static_pointer_cast<VarIdNode>(left)->getToken().getTokenData(), Symbol(std::static_pointer_cast<NameNode>(right)->getToken().getTokenData()));
     else if(token.getType() == Token::TokenType::STREAM){
-        std::string programValue = left->execute(memory);
-        std::string filename = memory->getPwd() + "/" + std::static_pointer_cast<FilenameNode>(right)->getToken().getTokenData();
-        std::ofstream o(filename.c_str());
-        o<<programValue;
-        o.close();
-    }else if(token.getType() == Token::TokenType::PIPE){
-        int READ = 0;
-        int WRITE = 1;
+        int fds1[2];
+        pipe(fds1);
 
+        if(fork()==0) {
+            close(fds1[READ]);
+            dup2(fds1[1],1 );
+             left->execute(memory);
+            exit(0);
+        }
+        sleep(1);
+        char readBuffer[2048];
+        read(fds1[READ], readBuffer, 2048);
+        close(fds1[READ]); close(fds1[WRITE]);
+
+        std::string filename =
+                memory->getPwd() + "/" + std::static_pointer_cast<FilenameNode>(right)->getToken().getTokenData();
+        std::ofstream file;
+        file.open(filename.c_str());
+        if( !file )
+            return "";
+        file << readBuffer;
+        file.close();
+    }else if(token.getType() == Token::TokenType::PIPE){
         int fds1[2];
 
         pipe(fds1);
