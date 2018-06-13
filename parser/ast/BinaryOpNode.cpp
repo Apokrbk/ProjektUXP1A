@@ -6,6 +6,7 @@
 #include <thread>
 #include <unistd.h>
 #include <iostream>
+#include <sstream>
 #include "BinaryOpNode.h"
 #include "VarIdNode.h"
 #include "NameNode.h"
@@ -40,35 +41,27 @@ std::string BinaryOpNode::execute(Memory *memory) {
         int fds1[2];
 
         pipe(fds1);
-
         if (fork()==0) {
             // Close unnecessary pipe's end
             close(fds1[READ]);
-            dup2(fds1[WRITE], 1);
-            close(fds1[WRITE]);
+
+            // Redirect stdout to pipe
+            dup2(fds1[1],1 ); close(fds1[1]);
 
             // Execute first program
-            std::string result = std::static_pointer_cast<ProgramCallNode>(left)->execute(memory);
-            write(1, result.c_str(), result.size() + 1);
+            std::static_pointer_cast<ProgramCallNode>(left)->execute(memory);
+            exit(0);
         }
         if (fork()==0){
             // Close unnecessary pipe's end
             close(fds1[WRITE]);
             // Pipe input to stdin
-            dup2(fds1[READ],0); close(fds1[READ]);
-
-            // Read output of last program
-            std::string arg;
-            std::getline(std::cin, arg);
-
-            // Add it as an argument
-            Token token = Token(Token::TokenType::STRING, arg);
-            std::static_pointer_cast<ProgramCallNode>(right)->add_argument(std::make_shared<NameNode>(token));
-
+            dup2(fds1[0],0); close(fds1[0]);
             // Execute second program
-            std::string result = std::static_pointer_cast<ProgramCallNode>(right)->execute(memory);
-            std::cout<<result;
+            std::static_pointer_cast<ProgramCallNode>(right)->execute(memory);
+            exit(0);
         }
+        sleep(1);
     }
 
     return "";

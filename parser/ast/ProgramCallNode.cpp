@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <zconf.h>
 #include "ProgramCallNode.h"
 #include "NameNode.h"
 
@@ -26,7 +27,11 @@ std::string ProgramCallNode::toString() {
 std::string ProgramCallNode::execute(Memory *memory) {
     std::string progname_s = std::static_pointer_cast<NameNode>(progname)->getToken().getTokenData();
     if(progname_s=="pwd"){
-        return memory->getPwd();
+        if(fork() == 0) {
+            execl("../builtins/pwd", "pwd", NULL);
+        }
+        sleep(1);
+        return "";
     }
     else if(progname_s=="cd"){
         if(args.size()==1){
@@ -42,13 +47,19 @@ std::string ProgramCallNode::execute(Memory *memory) {
         return "";
     }
     else if(progname_s=="ls"){
-        return memory->ls();
+        if(fork() == 0){
+            execl("../builtins/ls", "ls", NULL);
+        }
+        sleep(1);
+        return "";
     }else if(progname_s=="echo"){
         std::string echo = "";
-        for(int i = 0; i < args.size(); ++i){
+        for (int i = 0; i < args.size(); ++i) {
             echo += args[i]->execute(memory) + " ";
         }
-        return echo;
+        std::cout << echo << std::endl;
+        sleep(1);
+        return "";
     }
     else{
         return "CHUJ";
