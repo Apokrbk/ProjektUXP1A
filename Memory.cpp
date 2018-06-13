@@ -11,6 +11,8 @@ Memory::Memory() {
     initHome();
     pwd=home;
     oldpwd=getParentDirFromDir(pwd);
+    putSymbol("PWD", Symbol(pwd));
+    putSymbol("HOME", Symbol(home));
 }
 
 std::string Memory::getParameter(int number) {
@@ -128,12 +130,12 @@ void Memory::cd(std::string path) {
 
     }
     else if(path==".."){
-        pwd=oldpwd;
-        oldpwd=getParentDirFromDir(pwd);
+        oldpwd=pwd;
+        pwd=getParentDirFromDir(pwd);
     }
     else if(path==""){
+        oldpwd=pwd;
         pwd=home;
-        oldpwd=getParentDirFromDir(pwd);
     }
     else{
         oldpwd=pwd;
@@ -141,6 +143,8 @@ void Memory::cd(std::string path) {
             pwd+="/";
         pwd+=path;
     }
+    putSymbol("PWD", Symbol(pwd));
+    putSymbol("OLDPWD", Symbol(oldpwd));
 }
 
 
