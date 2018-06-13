@@ -27,7 +27,7 @@ std::string ProgramCallNode::execute(Memory *memory) {
     std::string progname_s = std::static_pointer_cast<NameNode>(progname)->getToken().getTokenData();
     if(progname_s=="pwd"){
         if(fork() == 0) {
-            execl("../builtins/pwd", "pwd", NULL);
+            execl("./pwd", "pwd", NULL);
         }
         sleep(1);
         return "";
@@ -47,7 +47,7 @@ std::string ProgramCallNode::execute(Memory *memory) {
     }
     else if(progname_s=="ls"){
         if(fork() == 0){
-            execl("../builtins/ls", "ls", NULL);
+            execl("./ls", "ls", NULL);
         }
         sleep(1);
         return "";
