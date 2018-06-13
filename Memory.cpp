@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <pwd.h>
 #include <dirent.h>
+#include <sys/stat.h>
 #include "Memory.h"
 
 Memory::Memory() {
@@ -138,13 +139,21 @@ void Memory::cd(std::string path) {
         pwd=home;
     }
     else{
-        oldpwd=pwd;
-        if(pwd!="/")
-            pwd+="/";
-        pwd+=path;
+
+        struct stat sb;
+
+        if (stat((pwd + "/" + path).c_str(), &sb) == 0 && S_ISDIR(sb.st_mode))
+        {
+            oldpwd=pwd;
+            if(pwd!="/")
+                pwd+="/";
+            pwd+=path;
+            putSymbol("PWD", Symbol(pwd));
+            putSymbol("OLDPWD", Symbol(oldpwd));
+        } else {
+            throw std::runtime_error("Cannot access " + path);
+        }
     }
-    putSymbol("PWD", Symbol(pwd));
-    putSymbol("OLDPWD", Symbol(oldpwd));
 }
 
 
