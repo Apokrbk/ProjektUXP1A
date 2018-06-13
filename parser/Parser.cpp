@@ -35,10 +35,6 @@ std::shared_ptr<Node> Parser::parseStatement() {
     if(currentToken.getType() == Token::TokenType::END)
         return nullptr;
 
-    node = parseSubstitution();
-    if (node != nullptr)
-        return node;
-
     node = parseShellStatement();
     if (node != nullptr)
         return node;
@@ -102,12 +98,19 @@ std::shared_ptr<Node> Parser::parseBasicStatement() {
 std::shared_ptr<Node> Parser::parseCompoundStatement() {
     std::shared_ptr<Node> node;
     Token token = currentToken;
-    if (currentToken.getType()==Token::TokenType::STRING || currentToken.getType()==Token::TokenType::IDENTIFIER){
-        if(currentToken.getType()==Token::TokenType::STRING)
-            eat(Token::TokenType::STRING);
-        else if (currentToken.getType()==Token::TokenType::IDENTIFIER)
-            eat(Token::TokenType::IDENTIFIER);
-        node = parseProgramCall(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
+    if (currentToken.getType()==Token::TokenType::STRING ||
+        currentToken.getType()==Token::TokenType::IDENTIFIER ||
+        currentToken.getType()==Token::TokenType::QUOTE_REVERSED){
+        if(currentToken.getType()==Token::TokenType::QUOTE_REVERSED){
+            node = parseSubstitution();
+        } else {
+            if (currentToken.getType() == Token::TokenType::STRING)
+                eat(Token::TokenType::STRING);
+            else if (currentToken.getType() == Token::TokenType::IDENTIFIER)
+                eat(Token::TokenType::IDENTIFIER);
+
+            node = parseProgramCall(std::static_pointer_cast<Node>(std::make_shared<NameNode>(token)));
+        }
         if (node == nullptr)
             return node;
 
